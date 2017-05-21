@@ -1,4 +1,4 @@
-from __future__ import division
+
 from scipy import sparse
 from scipy.optimize import minimize
 from sklearn.metrics import roc_auc_score
@@ -64,7 +64,7 @@ class NN(object):
         n_obs = X.shape[0]
         batch = self.b
         n_epoch = self.n
-        idx = range(n_obs)
+        idx = list(range(n_obs))
         self.auc_opt = .5
 
         start = time.time()
@@ -79,9 +79,9 @@ class NN(object):
             p_val = self.predict_raw(X_val)
             auc_val = roc_auc_score(y_val, p_val)
 
-        print('\t{:3d}:  {:.6f}  {:.6f}  {:.6f}  {:.2f}'.format(
+        print(('\t{:3d}:  {:.6f}  {:.6f}  {:.6f}  {:.2f}'.format(
               0, auc, auc_val, self.auc_opt,
-              (time.time() - start) / SEC_PER_MIN))
+              (time.time() - start) / SEC_PER_MIN)))
      
         # Use 'while' instead of 'for' to increase n_epoch if the validation
         # error keeps improving at the end of n_epoch 
@@ -139,15 +139,15 @@ class NN(object):
                     if epoch == n_epoch:
                         n_epoch += 5
 
-            print('\t{:3d}:  {:.6f}  {:.6f}  {:.6f}  {:.2f}'.format(
+            print(('\t{:3d}:  {:.6f}  {:.6f}  {:.6f}  {:.2f}'.format(
                   epoch, auc, auc_val, self.auc_opt,
-                  (time.time() - start) / SEC_PER_MIN))
+                  (time.time() - start) / SEC_PER_MIN)))
 
             epoch += 1
 
         if X_val is not None:
-            print('Optimal epoch is {0} ({1:.6f})'.format(self.n_opt,
-                                                          self.auc_opt))
+            print(('Optimal epoch is {0} ({1:.6f})'.format(self.n_opt,
+                                                          self.auc_opt)))
             self.w = self.w_opt
 
         logging.info('done training')
@@ -187,7 +187,7 @@ class NN(object):
             # If X has less columns, cut the rows of the weight matrix between
             # the input and h layers instead of X itself because the SciPy
             # sparse matrix does not support .set_shape() yet.
-            idx = range(X.shape[1])
+            idx = list(range(X.shape[1]))
             idx.append(self.i)        # Include the last row for the bias
             w1 = w1[idx, :]
 
@@ -216,8 +216,8 @@ class NN(object):
 
         # n -- number of pairs to evaluate
         n = max(n0, n1) * 10
-        idx0 = np.random.choice(range(n0), size=n)
-        idx1 = np.random.choice(range(n1), size=n)
+        idx0 = np.random.choice(list(range(n0)), size=n)
+        idx1 = np.random.choice(list(range(n1)), size=n)
 
         # b -- bias for the input and h layers
         b0 = np.ones((n0, 1))
@@ -271,8 +271,8 @@ class NN(object):
 
         # n -- number of pairs to evaluate
         n = max(n0, n1) * 10
-        idx0 = np.random.choice(range(n0), size=n)
-        idx1 = np.random.choice(range(n1), size=n)
+        idx0 = np.random.choice(list(range(n0)), size=n)
+        idx1 = np.random.choice(list(range(n1)), size=n)
 
         # b -- bias for the input and h layers
         b = np.ones((n, 1))

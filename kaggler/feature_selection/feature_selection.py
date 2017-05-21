@@ -18,7 +18,7 @@ class DropInactive(base.BaseEstimator, base.TransformerMixin):
         return self
 
     def transform(self, X):
-        print(self.mask.sum())
+        print((self.mask.sum()))
         return X[:, self.mask]
 
 
@@ -47,5 +47,5 @@ class DropLowInfo(base.BaseEstimator, base.TransformerMixin):
         return self
 
     def transform(self, X):
-        print(self.mask.sum())
+        print((self.mask.sum()))
         return X[:, self.mask]

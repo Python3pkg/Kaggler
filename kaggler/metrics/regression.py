@@ -1,4 +1,4 @@
-from __future__ import division
+
 from sklearn.metrics import mean_squared_error as mse
 
 import numpy as np

@@ -21,16 +21,16 @@ def test():
     for t, x in enumerate(train):
         learner.update(x, ytrain[t])
         if t % 1000 == 0:
-            print t
+            print(t)
     correct_num = 0
     for t, x in enumerate(test):
         y_pred = learner.predict(x)
         if y_pred == ytest[t]:
             correct_num += 1
         if t % 1000 == 0:
-            print t
+            print(t)
 
-    print correct_num
+    print(correct_num)
 
 if __name__ == '__main__':
     profile.run("test()")

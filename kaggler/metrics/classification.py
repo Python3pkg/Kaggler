@@ -1,4 +1,4 @@
-from __future__ import division
+
 from sklearn.metrics import roc_auc_score as auc
 from sklearn.metrics import log_loss
 

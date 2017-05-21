@@ -1,4 +1,4 @@
-from __future__ import division
+
 from scipy import sparse
 from scipy.signal import butter, lfilter
 from scipy.stats import norm
@@ -121,7 +121,7 @@ class LabelEncoder(base.BaseEstimator):
         label_encoder = {}
         label_index = 1
         labels_not_encoded = 0
-        for label in label_count.keys():
+        for label in list(label_count.keys()):
             if label_count[label] >= self.min_obs:
                 label_encoder[label] = label_index
                 label_index += 1
@@ -252,7 +252,7 @@ class OneHotEncoder(base.BaseEstimator):
         label_max = self.label_encoder.label_maxes[col]
 
         # build row and column index for non-zero values of a sparse matrix
-        index = np.array(range(len(labels)))
+        index = np.array(list(range(len(labels))))
         i = index[labels > 0]
         j = labels[labels > 0] - 1  # column index starts from 0
 
